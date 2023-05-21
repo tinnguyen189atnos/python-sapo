@@ -1,5 +1,6 @@
 from sapo.Auth import Auth
 from sapo.baseapi import BaseAPI
+from sapo.Collect import Collect
 from sapo.CustomCollection import CustomCollection
 from sapo.Customer import Customer
 from sapo.Order import Order
@@ -49,6 +50,12 @@ class Client:
 
     def get_all_price_rules(self, params={}):
         return PriceRule.list(self.api, params=params)
+
+    def get_collect(self, id, params={}):
+        return Collect.get(self.api, id, params=params)
+
+    def get_all_collects(self, params={}):
+        return Collect.list(self.api, params=params)
 
     @property
     def api(self):
