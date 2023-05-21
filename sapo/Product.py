@@ -20,6 +20,10 @@ class Product(SapoObject):
         self.variants = None
         self.vendor = None
         self.metafields = None
+        self.meta_title = None
+        self.meta_description = None
+        self.status = None
+        self.image = None
 
         super(Product, self).__init__(*args, **kwargs)
         self.nested_objects = {

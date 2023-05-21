@@ -1,6 +1,7 @@
 __all__ = [
     "Auth",
     "Client",
+    "Collect",
     "CustomCollection",
     "Product",
     "ProductVariant",
@@ -13,6 +14,7 @@ __all__ = [
 
 from .Auth import Auth
 from .Client import Client
+from .Collect import Collect
 from .CustomCollection import CustomCollection
 from .Customer import Customer
 from .LineItem import LineItem
