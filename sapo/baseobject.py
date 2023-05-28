@@ -19,6 +19,23 @@ class SapoObject:
             setattr(self, key, value)
         return self
 
+    def serialize(self):
+        data = {}
+        for key, value in self.__dict__.items():
+            if key in self.get_excluded_attrs():
+                continue
+            if key in self.nested_objects.keys():
+                if isinstance(value, list):
+                    data[key] = [v.serialize() for v in value]
+                    continue
+                data[key] = value.serialize()
+                continue
+            data[key] = value
+        return data
+
+    def get_excluded_attrs(self):
+        return ["nested_objects"]
+
     def __str__(self):
         return "<%s>" % self.__class__.__name__
 

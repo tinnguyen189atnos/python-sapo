@@ -1,4 +1,5 @@
 from .baseobject import SapoObject
+from .Image import Image
 from .ProductVariant import ProductVariant
 
 
@@ -32,7 +33,25 @@ class Product(SapoObject):
             ]
             if value
             else None,
+            "image": lambda value: Image().load(value) if value else None,
+            "images": lambda value: [Image().load(image) for image in value]
+            if value
+            else None,
         }
+
+    @classmethod
+    def create(cls, api, params={}):
+        data = api.post("admin/products.json", params=params)
+        product = cls()
+        product.load(data.get("product", {}))
+        return product
+
+    @classmethod
+    def update(cls, api, id, params={}):
+        data = api.put("admin/products/{}.json".format(id), params=params)
+        product = cls()
+        product.load(data.get("product", {}))
+        return product
 
     @classmethod
     def get(cls, api, id, params={}):

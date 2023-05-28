@@ -6,6 +6,7 @@ from sapo.Customer import Customer
 from sapo.Order import Order
 from sapo.PriceRule import PriceRule
 from sapo.Product import Product
+from sapo.ProductVariant import ProductVariant
 from sapo.Store import Store
 
 
@@ -15,7 +16,10 @@ class Client:
 
     def get_access_token(self, code, client_id, client_secret):
         return Auth.get_access_token(
-            self.api, code=code, client_id=client_id, client_secret=client_secret
+            self.api,
+            code=code,
+            client_id=client_id,
+            client_secret=client_secret,
         )
 
     def get_store(self):
@@ -33,11 +37,20 @@ class Client:
     def get_all_orders(self, params={}):
         return Order.list(self.api, params=params)
 
+    def create_product(self, params={}):
+        return Product.create(self.api, params=params)
+
+    def update_product(self, id, params={}):
+        return Product.update(self.api, id, params=params)
+
     def get_product(self, id, params={}):
         return Product.get(self.api, id, params=params)
 
     def get_all_products(self, params={}):
         return Product.list(self.api, params=params)
+
+    def create_custom_collection(self, params={}):
+        return CustomCollection.create(self.api, params=params)
 
     def get_custom_collection(self, id, params={}):
         return CustomCollection.get(self.api, id, params=params)
@@ -54,8 +67,17 @@ class Client:
     def get_collect(self, id, params={}):
         return Collect.get(self.api, id, params=params)
 
+    def create_collect(self, params={}):
+        return Collect.create(self.api, params=params)
+
     def get_all_collects(self, params={}):
         return Collect.list(self.api, params=params)
+
+    def delete_collect(self, id):
+        return Collect.delete(self.api, id)
+
+    def update_product_variant(self, id, params={}):
+        return ProductVariant.update(self.api, id, params=params)
 
     @property
     def api(self):

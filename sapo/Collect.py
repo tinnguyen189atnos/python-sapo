@@ -14,6 +14,13 @@ class Collect(SapoObject):
         super(Collect, self).__init__(*args, **kwargs)
 
     @classmethod
+    def create(cls, api, params={}):
+        data = api.post("admin/collects.json", params=params)
+        collect = cls()
+        collect.load(data.get("collect", {}))
+        return collect
+
+    @classmethod
     def get(cls, api, id, params={}):
         data = api.get("admin/collects/{}.json".format(id), params=params)
         collect = cls()
@@ -36,3 +43,7 @@ class Collect(SapoObject):
                 collects.append(collect_obj)
 
         return collects
+
+    @classmethod
+    def delete(cls, api, id):
+        return api.delete("admin/collects/{}.json".format(id))

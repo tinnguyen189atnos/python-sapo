@@ -22,6 +22,13 @@ class CustomCollection(SapoObject):
         super(CustomCollection, self).__init__(*args, **kwargs)
 
     @classmethod
+    def create(cls, api, params={}):
+        data = api.post("admin/custom_collections.json", params=params)
+        custom_collection = cls()
+        custom_collection.load(data.get("custom_collection", {}))
+        return custom_collection
+
+    @classmethod
     def get(cls, api, id, params={}):
         data = api.get("admin/custom_collections/{}.json".format(id), params=params)
         custom_collection = cls()

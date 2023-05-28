@@ -26,3 +26,14 @@ class ProductVariant(SapoObject):
         self.image_id = None
 
         super(ProductVariant, self).__init__(*args, **kwargs)
+
+    @classmethod
+    def create(cls, api, params={}):
+        pass
+
+    @classmethod
+    def update(cls, api, id, params={}):
+        data = api.put("admin/variants/%s.json" % id, params=params)
+        variant = cls()
+        variant.load(data.get("variant", {}))
+        return variant
