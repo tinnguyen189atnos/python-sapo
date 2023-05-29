@@ -3,6 +3,7 @@ from sapo.baseapi import BaseAPI
 from sapo.Collect import Collect
 from sapo.CustomCollection import CustomCollection
 from sapo.Customer import Customer
+from sapo.Image import Image
 from sapo.Order import Order
 from sapo.PriceRule import PriceRule
 from sapo.Product import Product
@@ -78,6 +79,9 @@ class Client:
 
     def update_product_variant(self, id, params={}):
         return ProductVariant.update(self.api, id, params=params)
+
+    def create_image(self, product_id, params={}):
+        return Image.create(self.api, product_id, params=params)
 
     @property
     def api(self):

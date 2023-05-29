@@ -11,3 +11,10 @@ class Image(SapoObject):
         self.src = None
         self.variant_ids = None
         super(Image, self).__init__(*args, **kwargs)
+
+    @classmethod
+    def create(cls, api, product_id, params={}):
+        data = api.post("admin/products/%s/images.json" % product_id, params=params)
+        image = cls()
+        image.load(data.get("image", {}))
+        return image
